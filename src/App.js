@@ -18,7 +18,7 @@ const items = [
     description: 'THIS IS A DESCRIPTION!'
   },
   {
-    id: 0,
+    id: 1,
     categories: [
       'plush',
       'dragon',
@@ -29,7 +29,7 @@ const items = [
     image: logo
   },
   {
-    id: 1,
+    id: 2,
     categories: [
       'sticker',
       'fox',

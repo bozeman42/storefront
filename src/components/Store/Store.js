@@ -4,7 +4,7 @@ const Store = ({ items, setCategory }) => {
   return (
     <div className='item-list'>
       {items.map(item => (
-        <div className='store-item'>
+        <div className='store-item' key={item.id}>
           <img className='item-image' src={item.image} />
           <p>{item.name}</p>
           <p>{item.description}</p>
