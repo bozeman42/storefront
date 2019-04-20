@@ -1,49 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header'
 import Store from './components/Store'
-import logo from './logo.svg'
 import './App.css';
 
-const items = [
-  {
-    id: 0,
-    categories: [
-      'sticker',
-      'dragon',
-      'cute',
-      'critter'
-    ],
-    name: 'A dragon sticker!',
-    image: logo,
-    description: 'THIS IS A DESCRIPTION!'
-  },
-  {
-    id: 0,
-    categories: [
-      'plush',
-      'dragon',
-      'cute',
-      'critter'
-    ],
-    name: 'A dragon plooooosh!',
-    image: logo
-  },
-  {
-    id: 1,
-    categories: [
-      'sticker',
-      'fox',
-      'cute',
-      'critter'
-    ],
-    name: 'A fox sticker!',
-    image: logo
-  }
-]
+
 
 const App = () => {
   const [category, setCategory] = useState('all')
-  const [ displayItems, setDisplayItems ] = useState(items)
+  const [items, setItems ] = useState([])
+  const [ reload, setReload ] = useState(true)
+  const [ displayItems, setDisplayItems ] = useState([])
+  const [ count, setCount ] = useState(0)
+  useEffect(() => {
+    fetch('/api/items')
+    .then(response => response.json())
+    .then(json => {
+      setItems(json.items)
+      console.table(json)
+      setCount(json.count)
+    })
+    .catch(e => alert(e.message))
+  }, [reload])
   useEffect(() => {
     if (category !== 'all') {
       setDisplayItems(items.filter(item => {
@@ -52,7 +29,7 @@ const App = () => {
     } else {
       setDisplayItems(items)
     }
-  }, [category])
+  }, [category, items])
   return (
     <div className="App">
       <Header setCategory={setCategory} />

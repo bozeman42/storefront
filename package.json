@@ -2,7 +2,10 @@
   "name": "store",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5309",
   "dependencies": {
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "2.1.8"
@@ -11,7 +14,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "nodemon server/server.js"
   },
   "eslintConfig": {
     "extends": "react-app"
