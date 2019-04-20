@@ -45,5 +45,5 @@ create table comments (
 create table items_categories (
   id serial primary key,
   item_id serial references items,
-  category_id serial references categories
+  category_id serial references categories
 );
