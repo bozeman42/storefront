@@ -9,41 +9,41 @@ create table "users" (
 );
 
 create table items (
-	item_id SERIAL primary key,
-	name VARCHAR(200) not null,
-	description VARCHAR(5000),
-	materials VARCHAR(5000),
-	price MONEY not NULL
+  item_id SERIAL primary key,
+  name VARCHAR(200) not null,
+  description VARCHAR(5000),
+  materials VARCHAR(5000),
+  price MONEY not NULL
 );
 
 create table images (
-	image_id serial primary key,
-	url varchar(1000),
-	description VARCHAR(1000)
-	user_id SERIAL references users
+  image_id serial primary key,
+  url varchar(1000),
+  description VARCHAR(1000),
+  user_id SERIAL references users
 );
 
 create table items_images (
-	id SERIAL primary key,
-	item_id SERIAL references items,
-	image_id SERIAL references images
+  id SERIAL primary key,
+  item_id SERIAL references items,
+  image_id SERIAL references images
 );
 
 create table categories (
-	category_id serial primary key,
-	name varchar(50) unique
+  category_id serial primary key,
+  name varchar(50) unique
 );
 
 create table comments (
-	comment_id serial primary key,
-	comment VARCHAR(8000) not null,
-	user_id serial references users,
-	item_id serial references items,
-	time timestamptz
+  comment_id serial primary key,
+  comment VARCHAR(8000) not null,
+  user_id serial references users,
+  item_id serial references items,
+  time timestamptz
 );
 
 create table items_categories (
-	id serial primary key,
-	item_id serial references items,
-	category_id serial references categories
+  id serial primary key,
+  item_id serial references items,
+q  category_id serial references categories
 );
