@@ -35,6 +35,26 @@ const items = [
       'critter'
     ],
     name: 'A fox sticker!',
+  },
+  {
+    id: 3,
+    categories: [
+      'sticker',
+      'fox',
+      'cute',
+      'critter'
+    ],
+    name: 'A fox sticker!',
+  },
+  {
+    id: 4,
+    categories: [
+      'sticker',
+      'fox',
+      'cute',
+      'critter'
+    ],
+    name: 'A fox sticker!',
   }
 ]
 

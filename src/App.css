@@ -28,17 +28,22 @@
   }
 }
 
-.item-list {
-  display: flex;
-}
-
 .store-item {
-  width: 200px;
-  height: 300px;
   border: solid black 1px;
   border-radius: 5px;
   padding: 10px;
   margin: 5px;
+}
+
+.store {
+  display: grid;
+  grid-template-columns: 10% 20% 20% 20% 20% 10%
+}
+
+.item-list {
+  grid-column: 2 / 6;
+  display: grid;
+  grid-template-columns:repeat(4, 25%)
 }
 
 .store-item > img {
