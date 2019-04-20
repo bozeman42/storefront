@@ -4,7 +4,6 @@ import Store from './components/Store'
 import './App.css';
 
 
-
 const App = () => {
   const [category, setCategory] = useState('all')
   const [items, setItems ] = useState([])
