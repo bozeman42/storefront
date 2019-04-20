@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-
+require('./modules/pool.js')
 const PORT = process.env.SERVER_PORT || 5000
 let count = 0
 const items = [
