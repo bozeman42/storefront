@@ -41,20 +41,21 @@ const items = [
     categories: [
       'sticker',
       'fox',
+      'dragon',
       'cute',
       'critter'
     ],
-    name: 'A fox sticker!',
+    name: 'A dragon-fox sticker!',
   },
   {
     id: 4,
     categories: [
-      'sticker',
+      'plush',
       'fox',
       'cute',
       'critter'
     ],
-    name: 'A fox sticker!',
+    name: 'A fox plush!',
   }
 ]
 

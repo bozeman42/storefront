@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './components/Header'
 import Store from './components/Store'
+import Nav from './components/Nav'
 import './App.css';
 
 class App extends Component {
@@ -27,19 +28,28 @@ class App extends Component {
   }
 
   setCategory(category) {
-    this.setState({
-      category
-    })
+    return () => {
+      this.setState({
+        category
+      })
+    }
   }
 
   render () {
     const {state: { items, count, category }, setCategory} = this
+    const categories = [
+      'fox',
+      'dragon',
+      'sticker',
+      'plush'
+    ]
     const displayItems = category === 'all' ? items : items.filter(item => {
       return item.categories.includes(category)
     })
     return (
       <div className="App">
         <Header setCategory={setCategory} />
+        <Nav setCategory={setCategory} categories={categories} />
         <Store items={displayItems} setCategory={setCategory} />
         <div>{count}</div>
       </div>
