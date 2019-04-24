@@ -13,7 +13,7 @@ create table items (
   name VARCHAR(200) not null,
   description VARCHAR(5000),
   materials VARCHAR(5000),
-  price MONEY not NULL
+  price INTEGER not NULL
 );
 
 create table images (
@@ -47,3 +47,20 @@ create table items_categories (
   item_id serial references items,
   category_id serial references categories
 );
+
+-- this line is used to change the type of the price field from MONEY to INTEGER.
+-- price is stored as an integer in cents.
+ALTER TABLE "public"."items" ALTER COLUMN "price" TYPE integer USING (price::TEXT::INTEGER);
+
+CREATE VIEW item_info AS 
+SELECT 
+i.item_id as id,
+i.name as name,
+i.description as description,
+i.materials as materials,
+i.price as price,
+array_agg(c.name) AS categories
+FROM items as i LEFT JOIN
+items_categories USING (item_id) LEFT JOIN
+categories as c USING (category_id)
+GROUP BY i.item_id;

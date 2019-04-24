@@ -7,6 +7,7 @@ const ItemList = ({items}) => (
         <img className='item-image' alt='Phil Murray' src='https://fillmurray.com/150/150' />
         <p>{item.name}</p>
         <p>{item.description}</p>
+        <p><strong>${item.price / 100}</strong></p>
       </div>
     ))}
   </div>

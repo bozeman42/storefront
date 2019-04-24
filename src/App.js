@@ -10,11 +10,20 @@ class App extends Component {
     this.state = {
       items: [],
       count: 0,
-      category: 'all'
+      category: 'all',
+      categories: []
     }
     this.setCategory = this.setCategory.bind(this)
   }
   componentDidMount () {
+    fetch('/api/categories')
+    .then(response => response.json())
+    .then(categories => {
+      this.setState({
+        categories
+      })
+    })
+    .catch(e => console.log(e))
     fetch('/api/items')
     .then(response => response.json())
     .then(json => {
@@ -36,13 +45,7 @@ class App extends Component {
   }
 
   render () {
-    const {state: { items, count, category }, setCategory} = this
-    const categories = [
-      'fox',
-      'dragon',
-      'sticker',
-      'plush'
-    ]
+    const {state: { items, count, category, categories }, setCategory} = this
     const displayItems = category === 'all' ? items : items.filter(item => {
       return item.categories.includes(category)
     })

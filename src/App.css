@@ -48,7 +48,7 @@ body {
 .item-list {
   display: grid;
   grid-gap: 5px;
-  grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns:repeat(auto-fit, 240px);
   grid-auto-rows: max-content;
   padding: 5px;
 }
