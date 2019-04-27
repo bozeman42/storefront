@@ -3,14 +3,13 @@ const express = require('express')
 const app = express()
 const pool = require('./modules/pool.js')
 const PORT = process.env.SERVER_PORT || 5000
-let count = 0
 
 app.get('/api/items', (req,res) => {
   pool.connect()
   .then(client => {
     client.query(`SELECT * FROM item_info;`)
     .then(result => {
-      res.send({items: result.rows, count})
+      res.send({items: result.rows})
     })
     .catch(e => {
       console.log(e)

@@ -45,6 +45,11 @@ body {
   grid-auto-columns: repeat(auto-fit, minmax())
 }
 
+#add-item-page {
+  grid-area: main;
+  background-color: purple;
+}
+
 .item-list {
   display: grid;
   grid-gap: 5px;
