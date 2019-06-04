@@ -45,9 +45,12 @@ body {
   grid-auto-columns: repeat(auto-fit, minmax())
 }
 
+#login-page {
+  grid-area: main;
+}
+
 #add-item-page {
   grid-area: main;
-  background-color: purple;
 }
 
 .item-list {
@@ -61,4 +64,8 @@ body {
 .store-item > img {
   height: 150px;
   width: 150px;
+}
+
+nav li  a {
+  color: white;
 }

@@ -1,12 +1,16 @@
-import React from 'react'
-import { ItemList } from '../ItemList'
+import React from "react";
+import { ItemList } from "../ItemList";
+import Nav from '../Nav'
 
-const Store = ({ items, setCategory }) => {
+const Store = ({ items, setCategory, categories }) => {
   return (
-    <div className='store'>
-      <ItemList items={items} />
-    </div>
-  )
-}
+    <>
+      <Nav setCategory={setCategory} categories={categories} />
+      <div className="store">
+        <ItemList items={items} />
+      </div>
+    </>
+  );
+};
 
-export default Store
+export default Store;

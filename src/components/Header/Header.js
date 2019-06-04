@@ -8,7 +8,7 @@ const Header = ({setCategory}) => (
       <ul>
         <li>
           <Link to='/'>Home</Link>
-          <Link to='/addItem'>Add Item</Link>
+          <Link to='/admin/addItem'>Add Item</Link>
         </li>
       </ul>
     </nav>
