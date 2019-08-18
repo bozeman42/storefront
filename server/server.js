@@ -1,10 +1,16 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-const PORT = process.env.SERVER_PORT || 5000
+
+const bodyParser = require('body-parser')
 
 const itemRouter = require('./routers/router-item')
 const categoryRouter = require('./routers/router-category')
+
+const PORT = process.env.SERVER_PORT || 5000
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}))
 
 app.use((req, res, next) => {
   console.log(req.url)
