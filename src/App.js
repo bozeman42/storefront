@@ -12,13 +12,16 @@ import fakeAuth from './fakeAuth'
 class App extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
       items: [],
       category: 'all',
       categories: []
     }
+
     this.setCategory = this.setCategory.bind(this)
   }
+
   componentDidMount() {
     fetch('/api/categories')
       .then(response => response.json())
@@ -29,6 +32,7 @@ class App extends Component {
         })
       })
       .catch(e => console.log(e))
+
     fetch('/api/items')
       .then(response => response.json())
       .then(items => {
