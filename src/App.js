@@ -1,69 +1,70 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Header from "./components/Header";
-import Store from "./components/Store";
-import Nav from "./components/Nav";
-import AddItem from "./components/AddItem";
-import Login from "./components/Login";
-import "./App.css";
+import React, { Component } from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Header from './components/Header'
+import Store from './components/Store'
+import Nav from './components/Nav'
+import AddItem from './components/AddItem'
+import Login from './components/Login'
+import './App.css'
 
-import fakeAuth from "./fakeAuth";
+import fakeAuth from './fakeAuth'
 
 class App extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       items: [],
-      category: "all",
+      category: 'all',
       categories: []
-    };
-    this.setCategory = this.setCategory.bind(this);
+    }
+    this.setCategory = this.setCategory.bind(this)
   }
   componentDidMount() {
-    fetch("/api/categories")
+    fetch('/api/categories')
       .then(response => response.json())
       .then(categories => {
+        console.log(categories)
         this.setState({
           categories
-        });
+        })
       })
-      .catch(e => console.log(e));
-    fetch("/api/items")
+      .catch(e => console.log(e))
+    fetch('/api/items')
       .then(response => response.json())
       .then(json => {
-        const { items } = json;
+        const { items } = json
         this.setState({
           items
-        });
+        })
       })
-      .catch(e => alert(e.message));
+      .catch(e => alert(e.message))
   }
 
   setCategory(category) {
     return () => {
       this.setState({
         category
-      });
-    };
+      })
+    }
   }
 
   render() {
     const {
       state: { items, category, categories },
       setCategory
-    } = this;
+    } = this
     const displayItems =
-      category === "all"
+      category === 'all'
         ? items
         : items.filter(item => {
-            return item.categories.includes(category);
-          });
+            return item.categories.includes(category)
+          })
     return (
-      <div className="App">
+      <div className='App'>
         <Router>
           <Header setCategory={setCategory} />
           <Route
-            path="/"
+            path='/'
             exact
             render={() => (
               <Store
@@ -73,12 +74,12 @@ class App extends Component {
               />
             )}
           />
-          <Route path="/login" component={Login} />
-          <Route path="/admin/addItem" component={AddItem} />
+          <Route path='/login' component={Login} />
+          <Route path='/admin/addItem' component={AddItem} />
         </Router>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
