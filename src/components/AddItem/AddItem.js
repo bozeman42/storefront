@@ -10,6 +10,7 @@ class AddItem extends Component {
       materials: '',
       displayPrice: '',
       categories: '',
+      quantity: 1,
       loading: false
     }
     this.handleInput = this.handleInput.bind(this)
@@ -28,11 +29,16 @@ class AddItem extends Component {
     return isNaN(result) ? 0 : result
   }
 
+  validateQuantity(value) {
+    return value <= 0 ? 0 : Math.floor(value)
+  }
+
   parseCategories(categories) {
     return categories
       .split(',')
       .map(category => category.trim())
       .filter(category => category !== '')
+      .filter((category, index, array) => index === array.indexOf(category))
   }
 
   handleInput(e) {
@@ -42,6 +48,10 @@ class AddItem extends Component {
       this.setState({
         displayPrice: this.validatePrice(e.target.value)
       })
+    } else if (field === 'quantity') {
+      this.setState({
+        quantity: this.validateQuantity(e.target.value)
+      })
     } else {
       this.setState({
         [field]: e.target.value
@@ -49,9 +59,9 @@ class AddItem extends Component {
     }
   }
 
-  renderCategory(category) {
+  renderCategory(category, index) {
     return (
-      <div className='category-chip'>
+      <div key={index} className='category-chip'>
         {category}
       </div>
     )
@@ -59,42 +69,56 @@ class AddItem extends Component {
 
   onSubmit(e) {
     e.preventDefault()
-    const{
-      name,
-      materials,
-      description,
-      categories
-    } = this.state
+    const { name, materials, description, categories, quantity } = this.state
 
     const itemToPost = {
-      name,
+      name: name.trim(),
       price: this.dataPrice(),
-      description,
-      materials,
-      categories: this.parseCategories(categories)
+      description: description.trim(),
+      materials: materials.trim(),
+      categories: this.parseCategories(categories),
+      quantity
     }
 
     postItem(itemToPost)
-    .then(response => {
-      console.log(response)
-    })
-    .catch(e => console.error(e))
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(e => console.error(e))
   }
 
   render() {
-    const { name, description, materials, displayPrice, categories } = this.state
+    const {
+      name,
+      description,
+      materials,
+      displayPrice,
+      categories,
+      quantity
+    } = this.state
 
     return (
       <div id='add-item-page'>
         <h2>Add an item</h2>
         <form onSubmit={this.onSubmit}>
           <div>
-            <label htmlFor='item-name-input'>Name </label>
+            <label htmlFor='name-input'>Name </label>
             <input
               type='text'
-              id='item-name-input'
+              id='name-input'
               name='name'
               value={name}
+              onChange={this.handleInput}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor='quantity-input'>quantity </label>
+            <input
+              id='quantity-input'
+              type='number'
+              name='quantity'
+              value={quantity}
+              step={1}
               onChange={this.handleInput}
               required
             />
@@ -149,6 +173,8 @@ class AddItem extends Component {
           <dl>
             <dt>Name</dt>
             <dd>{name}</dd>
+            <dt>Quantity</dt>
+            <dd>{quantity}</dd>
             <dt>Description</dt>
             <dd>{description}</dd>
             <dt>Price</dt>
@@ -157,7 +183,9 @@ class AddItem extends Component {
             <dd>{this.dataPrice()}</dd>
             <dt>Categories</dt>
             <dd>
-              {this.parseCategories(categories).map(category => this.renderCategory(category))}
+              {this.parseCategories(categories).map((category, index) =>
+                this.renderCategory(category, index)
+              )}
             </dd>
           </dl>
         </div>
