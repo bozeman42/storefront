@@ -31,8 +31,7 @@ class App extends Component {
       .catch(e => console.log(e))
     fetch('/api/items')
       .then(response => response.json())
-      .then(json => {
-        const { items } = json
+      .then(items => {
         this.setState({
           items
         })
