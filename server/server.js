@@ -1,40 +1,23 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-const pool = require('./modules/pool.js')
+
+const bodyParser = require('body-parser')
+
+const itemRouter = require('./routers/router-item')
+const categoryRouter = require('./routers/router-category')
+
 const PORT = process.env.SERVER_PORT || 5000
 
-app.get('/api/items', (req,res) => {
-  pool.connect()
-  .then(client => {
-    client.query(`SELECT * FROM item_info;`)
-    .then(result => {
-      res.send({items: result.rows})
-    })
-    .catch(e => {
-      console.log(e)
-      res.status(500).send(e)
-    })
-    .finally(() => client.release())
-  })
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}))
 
+app.use((req, res, next) => {
+  console.log(req.url)
+  next()
 })
 
-app.get('/api/categories', (req, res) => {
-  pool.connect()
-  .then(client => {
-    const categoryQuery = `
-    SELECT category_id as id, name as category FROM
-    categories RIGHT JOIN items_categories USING (category_id);`
-    client.query(categoryQuery)
-    .then(result => {
-      res.send(result.rows)
-    })
-    .catch(e => {
-      res.status(500).send(e)
-    })
-    .finally(() => client.release())
-  })
-})
+app.use('/api/items', itemRouter)
+app.use('/api/categories', categoryRouter)
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}...`))
