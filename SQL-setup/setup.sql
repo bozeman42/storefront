@@ -13,6 +13,7 @@ item_id SERIAL primary key,
 name VARCHAR(200) not null,
 description VARCHAR(5000),
 materials VARCHAR(5000),
+quantity INTEGER not NULL,
 price INTEGER not NULL
 );
 
