@@ -27,7 +27,6 @@ const addItem = item => {
         return addCategories(categories, itemId, client)
       })
       .finally(() => {
-        console.log('releasing', client)
         client.release()
       })
   })
