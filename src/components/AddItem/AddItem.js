@@ -1,9 +1,19 @@
 import React, { Component } from 'react'
-import { postItem } from '../../API/postItem'
+import { postItem } from '../../API'
+
+const defaultValues = {
+  name: '',
+  description: '',
+  materials: '',
+  displayPrice: '',
+  categories: '',
+  quantity: 1,
+  loading: false
+}
 
 class AddItem extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       name: '',
       description: '',
@@ -70,6 +80,7 @@ class AddItem extends Component {
   onSubmit(e) {
     e.preventDefault()
     const { name, materials, description, categories, quantity } = this.state
+    const { initializeStoreInfo } = this.props
 
     const itemToPost = {
       name: name.trim(),
@@ -81,8 +92,10 @@ class AddItem extends Component {
     }
 
     postItem(itemToPost)
-      .then(response => response.json())
-      .then(data => console.log(data))
+      .then(data => {
+        initializeStoreInfo()
+        console.log(data)
+      })
       .catch(e => console.error(e))
   }
 

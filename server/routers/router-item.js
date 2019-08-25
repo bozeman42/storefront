@@ -24,8 +24,7 @@ router.post('/', (req, res) => {
   try {
     addItem(item)
     .then(results => {
-      console.log(results)
-      res.send(results)
+      res.sendStatus(201)
     })
     .catch(e => {
       console.log(e)

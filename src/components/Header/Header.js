@@ -8,6 +8,8 @@ const Header = ({setCategory}) => (
       <ul>
         <li>
           <Link to='/'>Home</Link>
+        </li>
+        <li>
           <Link to='/admin/addItem'>Add Item</Link>
         </li>
       </ul>

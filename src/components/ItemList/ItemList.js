@@ -6,7 +6,7 @@ const renderQuantity = quantity => {
 }
 
 const Item = ({id, name, description, price, quantity}) => (
-  <div className='store-item' key={id}>
+  <div className='store-item'>
     <img className='item-image' alt='Phil Murray' src='https://www.fillmurray.com/150/150' />
     <p>{name}</p>
     <p>{description}</p>
@@ -17,7 +17,7 @@ const Item = ({id, name, description, price, quantity}) => (
 
 const ItemList = ({items}) => (
   <div className='item-list'>
-    {items.map(item => <Item {...item} />)}
+    {items.map(item => <Item key={item.id} {...item} />)}
   </div>
 )
 
