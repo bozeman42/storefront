@@ -9,3 +9,5 @@ const postImages = files => {
     body: formData
   })
 }
+
+export default postImages

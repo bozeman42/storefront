@@ -13,6 +13,8 @@ const upload = multer({
 
 router.post('/images', upload.array('images'), (req, res) => {
   // TO DO: have authentication before this router
+  // TO DO: image validation before storing
+  // TO DO: return references to the images to the client so they can be associated with the item
 
   Promise
     .all(req.files

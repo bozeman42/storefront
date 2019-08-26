@@ -99,7 +99,13 @@ class AddItem extends Component {
 
   uploadFiles(files) {
     postImages(files)
-    .then(response => console.log(response))
+    .then(response => {
+      console.log(response)
+      // display images from server?
+      this.setState({
+        imageUploading: false
+      })
+    })
     .catch(e => console.error(e))
   }
 
@@ -145,6 +151,7 @@ class AddItem extends Component {
           <div>
             <label htmlFor='name-input'>Name </label>
             <input
+              placeholder='Item name'
               type='text'
               id='name-input'
               name='name'
@@ -168,6 +175,7 @@ class AddItem extends Component {
           <div>
             <label htmlFor='price-input'>Price </label>
             <input
+              placeholder={`Price e.g.: 17.50`}
               id='price-input'
               type='number'
               name='displayPrice'
