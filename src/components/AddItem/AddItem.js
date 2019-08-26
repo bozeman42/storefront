@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { postItem } from '../../API'
+import { postItem, postImages } from '../../API'
 
 const defaultValues = {
   name: '',
@@ -84,28 +84,23 @@ class AddItem extends Component {
     )
   }
 
-  uploadFiles(files) {
-    const formData = new FormData()
-    const fileArray = Array.from(files)
-    console.log(fileArray)
-    fileArray.forEach(file => formData.append('images', file))
-
-    fetch('/api/upload/images', {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => console.log(response))
-    .catch(e => console.error(e))
-  }
-
   handleFiles(e) {
     const { files } = e.target
+
     this.setState({
       files,
       imageUploading: true
     })
+
     this.uploadFiles(files)
+
     e.target.value = null
+  }
+
+  uploadFiles(files) {
+    postImages(files)
+    .then(response => console.log(response))
+    .catch(e => console.error(e))
   }
 
   onSubmit(e) {
