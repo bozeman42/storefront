@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 
 const itemRouter = require('./routers/router-item')
 const categoryRouter = require('./routers/router-category')
+const uploadRouter = require('./routers/router-upload')
 
 const PORT = process.env.SERVER_PORT || 5000
 
@@ -17,6 +18,7 @@ app.use((req, res, next) => {
   next()
 })
 
+app.use('/api/upload', uploadRouter)
 app.use('/api/items', itemRouter)
 app.use('/api/categories', categoryRouter)
 
