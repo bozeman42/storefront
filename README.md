@@ -6,6 +6,7 @@ This is a storefront I am building for my SO to be able to sell her crafty wares
 - [x] Upload images to the server
 - [ ] Validation for uploaded images
 - [ ] display uploaded images before adding item
+- [ ] Associate images with item upon adding the item
 - [ ] Select default / thumbnail image for item
 - [ ] Cancel image on add item page (delete image and remove reference in database)
 
