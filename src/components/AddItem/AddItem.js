@@ -7,8 +7,7 @@ const defaultValues = {
   materials: '',
   displayPrice: '',
   categories: '',
-  quantity: 1,
-  loading: false
+  quantity: 1
 }
 
 class AddItem extends Component {
@@ -21,10 +20,12 @@ class AddItem extends Component {
       displayPrice: '',
       categories: '',
       quantity: 1,
-      loading: false
+      imageUploading: false
     }
     this.handleInput = this.handleInput.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
+    this.resetForm = this.resetForm.bind(this)
+    this.uploadFiles = this.uploadFiles.bind(this)
   }
 
   dataPrice() {
@@ -32,6 +33,10 @@ class AddItem extends Component {
     return !isNaN(parseFloat(displayPrice))
       ? Math.round(parseFloat(displayPrice) * 100)
       : 0
+  }
+
+  resetForm() {
+    this.setState(defaultValues)
   }
 
   validatePrice(value) {
@@ -77,10 +82,16 @@ class AddItem extends Component {
     )
   }
 
+  uploadFiles(e) {
+    const { files } = e.target
+    fetch
+  }
+
   onSubmit(e) {
     e.preventDefault()
     const { name, materials, description, categories, quantity } = this.state
     const { initializeStoreInfo } = this.props
+    const { resetForm } = this
 
     const itemToPost = {
       name: name.trim(),
@@ -94,7 +105,7 @@ class AddItem extends Component {
     postItem(itemToPost)
       .then(data => {
         initializeStoreInfo()
-        console.log(data)
+        resetForm()
       })
       .catch(e => console.error(e))
   }
@@ -178,6 +189,16 @@ class AddItem extends Component {
               name='categories'
               value={categories}
               onChange={this.handleInput}
+            />
+          </div>
+          <div>
+            <label htmlFor='image-input'>Images:</label>
+            <input
+              type='file'
+              id='image-input'
+              name='imageInput'
+              onChange={this.uploadFiles}
+              multiple
             />
           </div>
           <button type='submit'>Submit</button>
