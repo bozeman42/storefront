@@ -7,6 +7,8 @@ import AddItem from './components/AddItem'
 import Login from './components/Login'
 import './App.css'
 
+import { getItems, getCategories } from './API'
+
 import fakeAuth from './fakeAuth'
 
 class App extends Component {
@@ -19,22 +21,31 @@ class App extends Component {
       categories: []
     }
 
+    this.initializeStoreInfo = this.initializeStoreInfo.bind(this)
     this.setCategory = this.setCategory.bind(this)
   }
 
   componentDidMount() {
-    fetch('/api/categories')
-      .then(response => response.json())
+    this.initializeStoreInfo()
+  }
+
+  initializeStoreInfo () {
+    this.getItems()
+    this.getCategories()
+  }
+
+  getCategories() {
+    getCategories()
       .then(categories => {
-        console.log(categories)
         this.setState({
           categories
         })
       })
       .catch(e => console.log(e))
+  }
 
-    fetch('/api/items')
-      .then(response => response.json())
+  getItems () {
+    getItems()
       .then(items => {
         this.setState({
           items
@@ -60,7 +71,9 @@ class App extends Component {
       category === 'all'
         ? items
         : items.filter(item => {
-            return item.categories.includes(category)
+            return item.categories
+            .map(category => category.toLowerCase())
+            .includes(category.toLowerCase())
           })
     return (
       <div className='App'>
@@ -78,7 +91,7 @@ class App extends Component {
             )}
           />
           <Route path='/login' component={Login} />
-          <Route path='/admin/addItem' component={AddItem} />
+          <Route path='/admin/addItem' render={() => <AddItem initializeStoreInfo={this.initializeStoreInfo} />} />
         </Router>
       </div>
     )

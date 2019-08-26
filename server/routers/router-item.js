@@ -3,13 +3,15 @@ const router = new require('express').Router()
 const pool = require('../modules/pool.js')
 
 const addItem = require('../modules/addItem')
+const ItemModel = require('../models/ItemModel')
 
 router.get('/', (req, res) => {
   pool.connect().then(client => {
     client
       .query(`SELECT * FROM item_info;`)
       .then(result => {
-        res.send(result.rows)
+        const items = result.rows.map(item => new ItemModel(item))
+        res.send(items)
       })
       .catch(e => {
         console.log(e)
@@ -23,14 +25,13 @@ router.post('/', (req, res) => {
   const item = req.body
   try {
     addItem(item)
-    .then(results => {
-      console.log(results)
-      res.send(results)
-    })
-    .catch(e => {
-      console.log(e)
-      res.status(500).send({error: 'Failed to add item.'})
-    })
+      .then(results => {
+        res.sendStatus(201)
+      })
+      .catch(e => {
+        console.log(e)
+        res.status(500).send({ error: 'Failed to add item.' })
+      })
   } catch (e) {
     console.error(e)
     res.status(500).send('Something went wrong.')

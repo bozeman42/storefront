@@ -1,4 +1,4 @@
-export const postItem = item => {
+const postItem = item => {
   const options = {
     method: 'POST',
     headers: {
@@ -9,3 +9,5 @@ export const postItem = item => {
   
   return fetch('/api/items', options)
 }
+
+export default postItem
