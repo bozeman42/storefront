@@ -20,11 +20,13 @@ class AddItem extends Component {
       displayPrice: '',
       categories: '',
       quantity: 1,
+      files: [],
       imageUploading: false
     }
     this.handleInput = this.handleInput.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
     this.resetForm = this.resetForm.bind(this)
+    this.handleFiles = this.handleFiles.bind(this)
     this.uploadFiles = this.uploadFiles.bind(this)
   }
 
@@ -82,9 +84,28 @@ class AddItem extends Component {
     )
   }
 
-  uploadFiles(e) {
+  uploadFiles(files) {
+    const formData = new FormData()
+    const fileArray = Array.from(files)
+    console.log(fileArray)
+    fileArray.forEach(file => formData.append('images', file))
+
+    fetch('/api/upload/images', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => console.log(response))
+    .catch(e => console.error(e))
+  }
+
+  handleFiles(e) {
     const { files } = e.target
-    fetch
+    this.setState({
+      files,
+      imageUploading: true
+    })
+    this.uploadFiles(files)
+    e.target.value = null
   }
 
   onSubmit(e) {
@@ -101,9 +122,9 @@ class AddItem extends Component {
       categories: this.parseCategories(categories),
       quantity
     }
-
+    
     postItem(itemToPost)
-      .then(data => {
+      .then(() => {
         initializeStoreInfo()
         resetForm()
       })
@@ -117,7 +138,9 @@ class AddItem extends Component {
       materials,
       displayPrice,
       categories,
-      quantity
+      quantity,
+      files,
+      imageUploading
     } = this.state
 
     return (
@@ -197,11 +220,12 @@ class AddItem extends Component {
               type='file'
               id='image-input'
               name='imageInput'
-              onChange={this.uploadFiles}
+              onChange={this.handleFiles}
+              accept='image/*'
               multiple
             />
           </div>
-          <button type='submit'>Submit</button>
+          <button type='submit' disabled={imageUploading}>Submit</button>
         </form>
         <div>
           <dl>
