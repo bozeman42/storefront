@@ -243,7 +243,7 @@ class AddItem extends Component {
             <dd>{this.dataPrice()}</dd>
             <dt>Categories</dt>
             <dd>
-              {this.parseCategories(categories).map((category, index) =>
+              {parseCategories(categories).map((category, index) =>
                 this.renderCategory(category, index)
               )}
             </dd>
