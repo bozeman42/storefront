@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { postItem, postImages, deleteImage } from '../../API'
 import { validatePrice, validateQuantity, parseCategories } from './helpers'
 import './addItem.css'
+import { formConfig } from './addItemFormConfig'
 
 const defaultValues = {
   name: '',
@@ -15,6 +16,7 @@ const defaultValues = {
 class AddItem extends Component {
   constructor(props) {
     super(props)
+    console.log(props)
     this.state = {
       name: '',
       description: '',
@@ -146,76 +148,23 @@ class AddItem extends Component {
     return (
       <div id='add-item-page'>
         <h2>Add an item</h2>
-        <form onSubmit={this.onSubmit}>
-          <div>
-            <label htmlFor='name-input'>Name </label>
-            <input
-              placeholder='Item name'
-              type='text'
-              id='name-input'
-              name='name'
-              value={name}
-              onChange={this.handleInput}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor='quantity-input'>quantity </label>
-            <input
-              id='quantity-input'
-              type='number'
-              name='quantity'
-              value={quantity}
-              step={1}
-              onChange={this.handleInput}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor='price-input'>Price </label>
-            <input
-              placeholder={`Price e.g.: 17.50`}
-              id='price-input'
-              type='number'
-              name='displayPrice'
-              value={displayPrice}
-              step={0.01}
-              onChange={this.handleInput}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor='materials-input'>Materials </label>
-            <textarea
-              id='materials-input'
-              type='text'
-              name='materials'
-              value={materials}
-              onChange={this.handleInput}
-            />
-          </div>
-          <div>
-            <label htmlFor='desc-input'>Description </label>
-            <textarea
-              id='desc-input'
-              type='text'
-              name='description'
-              value={description}
-              onChange={this.handleInput}
-            />
-          </div>
-          <div>
-            <label htmlFor='category-input'>
-              Categories (comma separated):{' '}
-            </label>
-            <textarea
-              id='category-input'
-              type='text'
-              name='categories'
-              value={categories}
-              onChange={this.handleInput}
-            />
-          </div>
+        <hr />
+        <form className='add-item-form' onSubmit={this.onSubmit}>
+          {formConfig.map(inputField => {
+            const { labelText, id, ...inputProps } = inputField
+            console.log(id)
+            return (
+              <div key={id} className='input-group'>
+                <label htmlFor={id}>{labelText}</label>
+                <input 
+                  id={id}
+                  {...inputProps}
+                  onChange={this.handleInput}
+                  value={this.state[inputProps.name]}
+                />
+              </div>
+            )
+          })}
           <div>
             <label htmlFor='image-input'>Images:</label>
             <input
@@ -235,6 +184,8 @@ class AddItem extends Component {
             <dd>{name}</dd>
             <dt>Quantity</dt>
             <dd>{quantity}</dd>
+            <dt>Materials</dt>
+            <dd>{materials}</dd>
             <dt>Description</dt>
             <dd>{description}</dd>
             <dt>Price</dt>
