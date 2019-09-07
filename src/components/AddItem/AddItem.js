@@ -49,7 +49,8 @@ class AddItem extends Component {
 
   handleInput(e) {
     const field = e.target.name
-    if (field === 'dataPrice') {
+    console.log(field)
+    if (field === 'displayPrice') {
       this.setState({
         displayPrice: validatePrice(e.target.value)
       })
@@ -148,11 +149,9 @@ class AddItem extends Component {
     return (
       <div id='add-item-page'>
         <h2>Add an item</h2>
-        <hr />
         <form className='add-item-form' onSubmit={this.onSubmit}>
           {formConfig.map(inputField => {
             const { labelText, id, ...inputProps } = inputField
-            console.log(id)
             return (
               <div key={id} className='input-group'>
                 <label htmlFor={id}>{labelText}</label>
@@ -165,7 +164,7 @@ class AddItem extends Component {
               </div>
             )
           })}
-          <div>
+          <div className='input-group'>
             <label htmlFor='image-input'>Images:</label>
             <input
               type='file'

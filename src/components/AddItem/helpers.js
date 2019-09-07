@@ -1,6 +1,8 @@
 export function validatePrice(value) {
   const result = Math.round(parseFloat(value) * 100) / 100
-  return isNaN(result) ? 0 : result
+  if ( isNaN(result) || result < 0 ) return 0
+  console.log(result)
+  return result
 }
 
 export function validateQuantity(value) {
