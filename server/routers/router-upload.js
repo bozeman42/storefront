@@ -5,7 +5,7 @@ const multer = require('multer')
 const path = require('path')
 const renamePromise = require('../modules/renamePromise')
 
-const tempDir = path.join(__dirname, '../uploads/temp')
+const tempDir = path.join(__dirname, '../uploads/')
 
 const upload = multer({
   dest: tempDir
@@ -13,20 +13,17 @@ const upload = multer({
 
 router.post('/images', upload.array('images'), (req, res) => {
   // TO DO: have authentication before this router
-  // TO DO: image validation before storing
-  // TO DO: return references to the images to the client so they can be associated with the item
 
   Promise
     .all(req.files
       .map(file => {
         const tempPath = file.path
-        const targetPath = path.join(__dirname, '../uploads/') + `${file.filename}${path.extname(file.originalname)}`
+        const targetPath = path.join(__dirname, '../public/images/') + `${file.filename}${path.extname(file.originalname)}`
         return renamePromise(tempPath, targetPath)
       })
     )
-    .then(result => {
-      console.log(result)
-      res.sendStatus(201)
+    .then(fileNameArray => {
+      res.status(201).send(fileNameArray)
     })
     .catch(e => {
       console.log(e)

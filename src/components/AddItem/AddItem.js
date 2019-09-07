@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { postItem, postImages } from '../../API'
+import { postItem, postImages, deleteImage } from '../../API'
+import { validatePrice, validateQuantity, parseCategories } from './helpers'
+import './addItem.css'
 
 const defaultValues = {
   name: '',
@@ -21,13 +23,15 @@ class AddItem extends Component {
       categories: '',
       quantity: 1,
       files: [],
+      images: [],
+      imagesDeleting: [],
       imageUploading: false
     }
     this.handleInput = this.handleInput.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
     this.resetForm = this.resetForm.bind(this)
     this.handleFiles = this.handleFiles.bind(this)
-    this.uploadFiles = this.uploadFiles.bind(this)
+    this.deleteImage = this.deleteImage.bind(this)
   }
 
   dataPrice() {
@@ -41,33 +45,15 @@ class AddItem extends Component {
     this.setState(defaultValues)
   }
 
-  validatePrice(value) {
-    const result = Math.round(parseFloat(value) * 100) / 100
-    return isNaN(result) ? 0 : result
-  }
-
-  validateQuantity(value) {
-    return value <= 0 ? 0 : Math.floor(value)
-  }
-
-  parseCategories(categories) {
-    return categories
-      .split(',')
-      .map(category => category.trim())
-      .filter(category => category !== '')
-      .filter((category, index, array) => index === array.indexOf(category))
-  }
-
   handleInput(e) {
     const field = e.target.name
-    console.log(field)
     if (field === 'dataPrice') {
       this.setState({
-        displayPrice: this.validatePrice(e.target.value)
+        displayPrice: validatePrice(e.target.value)
       })
     } else if (field === 'quantity') {
       this.setState({
-        quantity: this.validateQuantity(e.target.value)
+        quantity: validateQuantity(e.target.value)
       })
     } else {
       this.setState({
@@ -88,25 +74,38 @@ class AddItem extends Component {
     const { files } = e.target
 
     this.setState({
-      files,
       imageUploading: true
     })
 
-    this.uploadFiles(files)
-
-    e.target.value = null
-  }
-
-  uploadFiles(files) {
     postImages(files)
-    .then(response => {
-      console.log(response)
-      // display images from server?
-      this.setState({
-        imageUploading: false
-      })
+    .then(response => response.json())
+    .then(imageFilenameArray => {
+      this.setState(prevState => {
+        return {
+          imageUploading: false,
+          images: [...prevState.images, ...imageFilenameArray]
+        }
+      }
+    )
     })
     .catch(e => console.error(e))
+    e.target.files = null
+  }
+
+  deleteImage(filename) {
+    return e => {
+      deleteImage(filename)
+      .then(response => {
+        this.setState(prevState => {
+          return {
+            images: prevState.images.filter(image => image !== filename)
+          }
+        })
+      })
+      .catch(error => {
+        console.error(error)
+      })
+    }
   }
 
   onSubmit(e) {
@@ -120,7 +119,7 @@ class AddItem extends Component {
       price: this.dataPrice(),
       description: description.trim(),
       materials: materials.trim(),
-      categories: this.parseCategories(categories),
+      categories: parseCategories(categories),
       quantity
     }
     
@@ -140,8 +139,8 @@ class AddItem extends Component {
       displayPrice,
       categories,
       quantity,
-      files,
-      imageUploading
+      imageUploading,
+      images
     } = this.state
 
     return (
@@ -247,6 +246,12 @@ class AddItem extends Component {
               {this.parseCategories(categories).map((category, index) =>
                 this.renderCategory(category, index)
               )}
+            </dd>
+            <dt>Images</dt>
+            <dd>
+              {images.map(filename => {
+                return <img className='upload-thumbnail' src={`/api/images/${filename}`} onClick={this.deleteImage(filename)} key={filename} alt='User upload' />
+              })}
             </dd>
           </dl>
         </div>

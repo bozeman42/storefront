@@ -1,5 +1,4 @@
 const pool = require('./pool')
-const utilities = require('./utilities')
 
 const addItem = item => {
   const { 
