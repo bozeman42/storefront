@@ -3,7 +3,9 @@
 const router = new require('express').Router()
 const multer = require('multer')
 const path = require('path')
+
 const renamePromise = require('../modules/renamePromise')
+const logToFile = require('../modules/logger')
 
 const tempDir = path.join(__dirname, '../uploads/')
 
@@ -26,6 +28,7 @@ router.post('/images', upload.array('images'), (req, res) => {
       res.status(201).send(fileNameArray)
     })
     .catch(e => {
+      logToFile(e.stack)
       console.log(e)
       res.status(500).send('Failed to upload files properly')
     })

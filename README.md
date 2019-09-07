@@ -9,9 +9,15 @@ This is a storefront I am building for my SO to be able to sell her crafty wares
 - [ ] Select default / thumbnail image for item
 - [ ] Cancel image on add item page (delete image and remove reference in database)
 
-
-
-
+### Setup Notes
+- Clone repo
+- yarn install at root
+- create .env file with appropriate values based on the example.env in the project
+- using postgres, execute the SQL-setup files in sequence
+- create the following folders
+  - `server/uploads`
+  - `server/logs`
+  - `server/public/images`
 
 
 

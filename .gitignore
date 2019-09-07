@@ -25,3 +25,5 @@ yarn-error.log*
 
 /server/uploads/
 /server/public/images/
+
+logs/
