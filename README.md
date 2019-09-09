@@ -5,9 +5,10 @@ This is a storefront I am building for my SO to be able to sell her crafty wares
 - [x] Add categories to database when adding a new item.
 - [x] Upload images to the server
 - [x] display uploaded images before adding item
-- [ ] Associate images with item upon adding the item
+- [x] Associate images with item upon adding the item
 - [ ] Select default / thumbnail image for item
 - [ ] Cancel image on add item page (delete image and remove reference in database)
+- [ ] create alt text for images
 
 ### Setup Notes
 - Clone repo
