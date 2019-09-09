@@ -7,7 +7,9 @@ class ItemModel {
     price,
     quantity,
     categories,
-    category_ids
+    category_ids,
+    images,
+    image_ids
   }) {
     this.id = id
     this.name = name
@@ -18,6 +20,10 @@ class ItemModel {
     this.categories = categories.map((category, index) => ({
       id: category_ids[index],
       category
+    }))
+    this.images = images.map((image, index) => ({
+      id: image_ids[index],
+      image
     }))
   }
 }

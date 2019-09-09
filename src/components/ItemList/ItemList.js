@@ -6,7 +6,7 @@ const renderQuantity = quantity => {
 }
 
 const Item = ({ id, name, description, price, quantity, categories }) => (
-  <div className='store-item'>
+  <div className='store-item' >
     <img
       className='item-image'
       alt='Phil Murray'
@@ -28,12 +28,14 @@ const renderCategories = categories => {
   })
 }
 
-const ItemList = ({ items }) => (
+const ItemList = ({ items }) => {
+  console.log(items)
+  return (
   <div className='item-list'>
     {items.map(item => (
       <Item key={item.id} {...item} />
     ))}
   </div>
-)
+)}
 
 export default ItemList

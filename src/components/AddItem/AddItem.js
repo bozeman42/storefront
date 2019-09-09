@@ -113,7 +113,7 @@ class AddItem extends Component {
 
   onSubmit(e) {
     e.preventDefault()
-    const { name, materials, description, categories, quantity } = this.state
+    const { name, materials, description, categories, images, quantity } = this.state
     const { initializeStoreInfo } = this.props
     const { resetForm } = this
 
@@ -123,6 +123,7 @@ class AddItem extends Component {
       description: description.trim(),
       materials: materials.trim(),
       categories: parseCategories(categories),
+      images,
       quantity
     }
     

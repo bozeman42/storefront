@@ -1,6 +1,7 @@
 const router = new require('express').Router()
 
 const pool = require('../modules/pool.js')
+const logToFile = require('../modules/logger')
 
 const addItem = require('../modules/addItem')
 const ItemModel = require('../models/ItemModel')
@@ -23,6 +24,7 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   const item = req.body
+  console.log(item)
   try {
     addItem(item)
       .then(results => {
@@ -30,10 +32,12 @@ router.post('/', (req, res) => {
       })
       .catch(e => {
         console.log(e)
+        logToFile(e.stack)
         res.status(500).send({ error: 'Failed to add item.' })
       })
   } catch (e) {
     console.error(e)
+    logToFile(e.stack)
     res.status(500).send('Something went wrong.')
   }
 })

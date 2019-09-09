@@ -20,8 +20,7 @@ price INTEGER not NULL
 create table images (
 image_id serial primary key,
 url varchar(1000),
-description VARCHAR(1000),
-user_id SERIAL references users
+description VARCHAR(1000)
 );
 
 create table items_images (
