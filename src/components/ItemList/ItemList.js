@@ -5,12 +5,11 @@ const renderQuantity = quantity => {
   return <p>{quantity} in stock</p>
 }
 
-const Item = ({ id, name, description, price, quantity, categories }) => (
+const Item = ({ id, name, description, price, quantity, categories, images }) => (
   <div className='store-item' >
     <img
       className='item-image'
-      alt='Phil Murray'
-      src='https://www.fillmurray.com/150/150'
+      src={`api/images/${images[0].image}`}
     />
     <p>{name}</p>
     <p>{description}</p>
