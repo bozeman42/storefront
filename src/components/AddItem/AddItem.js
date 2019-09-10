@@ -175,7 +175,9 @@ class AddItem extends Component {
               multiple
             />
           </div>
-          <button type='submit' disabled={imageUploading}>Submit</button>
+          <div className='input-group'>
+            <button type='submit' disabled={imageUploading}>Submit</button>
+          </div>
         </form>
         <div>
           <dl>
