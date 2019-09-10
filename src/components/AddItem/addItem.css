@@ -6,7 +6,7 @@
 .input-group {
   display: grid;
   grid-gap: 16px;
-  grid-template-columns: 200px minmax(auto, 300px);
+  grid-template-columns: 200px minmax(auto, 250px) 50px;
   padding-bottom: 5px;
 }
 
@@ -20,7 +20,7 @@
 }
 
 .input-group input {
-  grid-column: 2 / 3;
+  grid-column: 2 / 4;
 }
 
 #add-item-page {
@@ -37,4 +37,9 @@
 h2 {
   grid-column: 1 / 2;
   text-align: right;
+}
+
+.input-group button {
+  grid-column: 3 / 4;
+  align-self: right;
 }
