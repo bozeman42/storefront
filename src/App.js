@@ -71,7 +71,7 @@ class App extends Component {
         ? items
         : items.filter(item => {
             return item.categories
-            .map(category => category.toLowerCase())
+            .map(category => category.category.toLowerCase())
             .includes(category.toLowerCase())
           })
     return (

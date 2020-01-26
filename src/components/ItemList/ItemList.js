@@ -7,10 +7,10 @@ const renderQuantity = quantity => {
 
 const Item = ({ id, name, description, price, quantity, categories, images }) => (
   <div className='store-item' >
-    <img
+    {images && images[0] && (<img
       className='item-image'
       src={`api/images/${images[0].image}`}
-    />
+    />)}
     <p>{name}</p>
     <p>{description}</p>
     <p>

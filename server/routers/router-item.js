@@ -16,6 +16,7 @@ router.get('/', (req, res) => {
       })
       .catch(e => {
         console.log(e)
+        logToFile(e.stack)
         res.status(500).send(e)
       })
       .finally(() => client.release())

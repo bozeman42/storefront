@@ -21,10 +21,10 @@ class ItemModel {
       id: category_ids[index],
       category
     }))
-    this.images = images.map((image, index) => ({
+    this.images = images ? images.map((image, index) => ({
       id: image_ids[index],
       image
-    }))
+    })) : []
   }
 }
 
