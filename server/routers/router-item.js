@@ -9,9 +9,10 @@ const ItemModel = require('../models/ItemModel')
 router.get('/', (req, res) => {
   pool.connect().then(client => {
     client
-      .query(`SELECT * FROM item_info;`)
-      .then(result => {
+    .query(`SELECT * FROM item_info;`)
+    .then(result => {
         const items = result.rows.map(item => new ItemModel(item))
+        console.log(items)
         res.send(items)
       })
       .catch(e => {

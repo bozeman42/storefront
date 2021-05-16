@@ -33,4 +33,4 @@ left join
 item_category_summary as c using (item_id)
 left join
 item_image_summary as img using (item_id)
-GROUP BY i.item_id, c.category_ids, c.categories, img.image_ids, img.urls ;
+GROUP BY i.item_id, c.category_ids, c.categories, img.image_ids, img.urls;

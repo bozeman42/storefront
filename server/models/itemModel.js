@@ -17,14 +17,19 @@ class ItemModel {
     this.materials = materials
     this.price = price
     this.quantity = quantity
-    this.categories = categories.map((category, index) => ({
-      id: category_ids[index],
-      category
-    }))
-    this.images = images ? images.map((image, index) => ({
-      id: image_ids[index],
-      image
-    })) : []
+    this.categories = categories
+      ? categories.map((category, index) => ({
+          id: category_ids[index],
+          category
+        }))
+      : []
+
+    this.images = images 
+      ? images.map((image, index) => ({
+          id: image_ids[index],
+          image
+        }))
+      : []
   }
 }
 

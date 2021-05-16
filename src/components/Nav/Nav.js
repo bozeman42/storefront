@@ -3,18 +3,18 @@ import React from 'react'
 const Nav = ({setCategory, categories}) => {
   return (
     <nav className="nav">
-      <div onClick={setCategory('all')}>
-        <p>
+      <div onClick={() => setCategory('all')}>
+        <button>
           All categories
-        </p>
+        </button>
       </div>
       {categories.map(cat => {
         const { id, category } = cat
         return (
-        <div key={id} onClick={setCategory(category)}>
-          <p>
+        <div key={id}>
+          <button onClick={() => setCategory(category)}>
             {category}
-          </p>
+          </button>
         </div>
         )
       }
