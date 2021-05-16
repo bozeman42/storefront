@@ -44,4 +44,10 @@ router.post('/', (req, res) => {
   }
 })
 
+router.delete('/:itemId', (req, res) => {
+  // AUTHORIZE THIS ROUTE
+  console.log('deleting', req.params)
+  res.sendStatus(200)
+})
+
 module.exports = router

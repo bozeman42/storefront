@@ -33,7 +33,7 @@ const App = () => {
           <Store loading={loading} itemsError={error} items={displayItems} categories={categories} setCategory={setCategory} />
         </Route>
         <Route path='/login' component={Login} />
-        <Route path='/admin/addItem' render={() => <AddItem initializeStoreInfo={this.initializeStoreInfo} />} />
+        <Route path='/admin/addItem' component={AddItem} />
       </Router>
     </div>
   )

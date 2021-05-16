@@ -56,12 +56,12 @@ const addCategories = async (categories, itemId, client) => {
   
   // at this point the categories are in the database and you have their category_ids
 
-  await categoryIds.forEach(categoryId => {
-    client.query(
+  for (let categoryId of categoryIds) {
+    await client.query(
       `INSERT INTO items_categories (category_id, item_id) values ($1, $2);`,
       [categoryId, itemId]
     )
-  })
+  }
 }
 
 const addImages = async (images, itemId, client) => {
@@ -83,12 +83,12 @@ const addImages = async (images, itemId, client) => {
   
   // at this point the images are in the database and you have their image_ids
 
-  await imageIds.forEach(imageId => {
-    client.query(
+  for (let imageId of imageIds) {
+    await client.query(
       `INSERT INTO items_images (image_id, item_id) values ($1, $2);`,
       [imageId, itemId]
     )
-  })
+  }
 }
 
 

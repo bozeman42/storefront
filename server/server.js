@@ -2,7 +2,6 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 
-const bodyParser = require('body-parser')
 const path = require('path')
 
 const itemRouter = require('./routers/router-item')
@@ -15,8 +14,9 @@ const auth = require('./modules/fakeAuth')
 
 const PORT = process.env.SERVER_PORT || 5000
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+
 
 app.use((req, res, next) => {
   console.log(req.url)
