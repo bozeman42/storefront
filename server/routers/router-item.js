@@ -3,6 +3,8 @@ const router = new require('express').Router()
 const pool = require('../modules/pool.js')
 const logToFile = require('../modules/logger')
 
+const { deleteItem } = require('../modules/deleteItem')
+
 const addItem = require('../modules/addItem')
 const ItemModel = require('../models/ItemModel')
 
@@ -46,8 +48,16 @@ router.post('/', (req, res) => {
 
 router.delete('/:itemId', (req, res) => {
   // AUTHORIZE THIS ROUTE
-  console.log('deleting', req.params)
-  res.sendStatus(200)
+  const { itemId } = req.params
+  console.log('deleting', itemId)
+  try {
+    deleteItem(itemId)
+    res.sendStatus(200)
+  } catch (e) {
+    console.error(e)
+    logToFile(e.stack)
+    res.status(500).send(`Failed to delete ${itemId}`)
+  }
 })
 
 module.exports = router
